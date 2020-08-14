@@ -1,0 +1,101 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    ext{
+        set('springVersion', "2.2.6.RELEASE")
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springVersion}"
+    }
+}
+
+apply plugin: "org.springframework.boot"
+apply plugin: "java"
+apply plugin: "java-library"
+apply plugin: "maven-publish"
+apply plugin: "pmd"
+
+def defaultEncoding = 'UTF-8'
+[compileJava, compileTestJava]*.options*.encoding = defaultEncoding
+
+group = 'com.globant/BrainWaves/Commons'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+ext {
+    set('lombokVersion', "1.18.12")
+    set('AkkaVersion', "2.6.6")
+    set('AlpakkaKafkaVersion', "2.0.2")
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+
+dependencies {
+
+    implementation "org.springframework.boot:spring-boot-starter:${springVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-web:${springVersion}"
+    implementation "org.springframework.boot:spring-boot-starter-cache:${springVersion}"
+    implementation "org.springframework.data:spring-data-elasticsearch:3.2.7.RELEASE"
+    implementation "javax.persistence:javax.persistence-api:2.2"
+    implementation "com.typesafe.akka:akka-stream-kafka_2.13:${AlpakkaKafkaVersion}"
+    implementation "com.typesafe.akka:akka-stream_2.13:${AkkaVersion}"
+    implementation "com.typesafe.akka:akka-actor-typed_2.13:${AkkaVersion}"
+    implementation "com.typesafe.akka:akka-actor_2.13:${AkkaVersion}"
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.modelmapper:modelmapper:2.3.7'
+    implementation 'io.vavr:vavr:0.10.2'
+    implementation "javax.validation:validation-api:2.0.1.Final"
+    implementation "com.auth0:java-jwt:3.10.2"
+    implementation 'javax.xml.bind:jaxb-api:2.3.0'
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springVersion}"){
+        exclude group: "org.apache.tomcat", module: "tomcat-jdbc"
+    }
+    runtimeOnly 'com.h2database:h2:1.4.200'
+
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+
+    testImplementation "junit:junit:4.13"
+    testImplementation "org.mockito:mockito-core:3.3.3"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:${springVersion}"
+
+}
+
+
+sourceSets {
+    main {
+        java.srcDirs = ['src/main/java']
+    }
+}
+
+tasks.withType(Pmd) {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+pmd {
+    ignoreFailures = true
+    pmdTest.enabled = false
+}
+
