@@ -2,7 +2,6 @@ package com.arianthox.predictor.commons.utils;
 
 import akka.japi.function.Function;
 import akka.stream.Supervision;
-import com.arianthox.predictor.commons.model.WavePacket;
 import lombok.experimental.UtilityClass;
 import lombok.extern.java.Log;
 
@@ -14,9 +13,7 @@ import static akka.stream.Supervision.*;
 @Log
 @UtilityClass
 public class CommonUtil {
-    public String getTopicName(WavePacket wavePacket){
-        return getTopicName(wavePacket.getPacket().getClass());
-    }
+
     public String getTopicName(Class packetClass){
         return formatTopicName(packetClass.getSimpleName());
     }

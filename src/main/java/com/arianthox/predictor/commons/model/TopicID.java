@@ -7,6 +7,7 @@ public enum TopicID {
     CHANNEL("%s_channel"),
     MATCHER_TRAINER(),
     MATCHER(),
+    DRAWS(),
     MATCHER_RESULT(),
     THINK_GEAR_READER();
 
@@ -17,7 +18,7 @@ public enum TopicID {
     TopicID(){
         this.topic= CommonUtil.formatTopicName(this.name().toLowerCase());
     }
-    public TopicID from(Class<? extends Packet> packetClass){
+    public TopicID from(Class<?> packetClass){
         this.topic = CommonUtil.formatTopicName(String.format(topic, CommonUtil.getTopicName(packetClass)));
         return this;
     }

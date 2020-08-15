@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
-@EnableJpaRepositories(basePackages="com.globant.brainwaves.commons.persistence.cache.repository", entityManagerFactoryRef="cacheEntityManager")
+@EnableJpaRepositories(basePackages="com.arianthox.predictor.commons.persistence.cache.repository", entityManagerFactoryRef="cacheEntityManager")
 public class CacheDataSourceConfig {
 
     @Bean
@@ -23,7 +23,7 @@ public class CacheDataSourceConfig {
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(getCacheDataSource());
         em.setPackagesToScan(
-                new String[]{"com.globant.brainwaves.commons.persistence.cache"});
+                new String[]{"com.arianthox.predictor.commons.persistence.cache"});
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

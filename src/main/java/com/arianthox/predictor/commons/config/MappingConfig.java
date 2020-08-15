@@ -1,7 +1,5 @@
 package com.arianthox.predictor.commons.config;
 
-import com.arianthox.predictor.commons.adapter.PacketAdapter;
-import com.arianthox.predictor.commons.model.Packet;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.modelmapper.ModelMapper;
@@ -21,7 +19,7 @@ public class MappingConfig {
     @Bean
     public Gson gson(){
         GsonBuilder builder = new GsonBuilder();
-        builder.registerTypeAdapter(Packet.class, new PacketAdapter());
+        //builder.registerTypeAdapter(Packet.class, new PacketAdapter());
         return builder.create();
     }
 }
