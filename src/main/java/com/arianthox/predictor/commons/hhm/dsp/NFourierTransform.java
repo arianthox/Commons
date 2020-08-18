@@ -16,15 +16,11 @@ public class NFourierTransform {
      */
     public static Map.Entry<List<Double>,List<Double>> computeFFT(List<Double> signal) {
         numPoints = signal.size();
-        System.out.println("numPoints:"+numPoints);
         real = new ArrayList<>(signal);
         imag = new ArrayList<>(signal);
-        System.out.println("signal size:"+signal.size());
-        System.out.println("real size:"+real.size());
         for (int i = 0; i < imag.size(); i++) {
             imag.set(i,0d);
         }
-
         process();
         return new AbstractMap.SimpleEntry<>(real,imag);
     }

@@ -36,30 +36,19 @@ public class DrawVO implements Serializable {
     private List<Integer> n;
     @EqualsAndHashCode.Include
     private Integer factor;
-    private String multiplier;
+    private Integer multiplier;
+    private Integer megaBall;
     private int score=0;
+    private Map.Entry<List<Double>, List<Double>> fourier;
 
     private HashMap<String, Double> match;
 
-    public void setMultiplier(String multiplier){
-        this.multiplier=multiplier;
-        if(null!=multiplier && !multiplier.isEmpty()){
-            this.factor=Integer.parseInt(multiplier);
-        }
-    }
 
-    public Integer getFactor(){
-        if(this.factor==null && this.multiplier!=null){
-            this.factor = Integer.parseInt(this.multiplier);
-        }
-        return factor;
-    }
 
 
     public DrawVO(Date drawDate, String winningNumbers, String multiplier) {
         this.drawDate = drawDate;
         this.n = Arrays.asList(winningNumbers.split(" ")).stream().map(s -> Integer.parseInt(s)).collect(Collectors.toList());
-        this.multiplier = multiplier;
         this.id = this.drawDate.getTime();
         LocalDate localDate = LocalDate.ofInstant(this.drawDate.toInstant(), ZoneId.systemDefault());
         this.year = localDate.getYear();
@@ -67,6 +56,8 @@ public class DrawVO implements Serializable {
         this.day = localDate.getDayOfMonth();
 
     }
+
+
     public int getScore(){
         if(score==0) {
             Collections.sort(n);
